@@ -21,6 +21,14 @@ class kobuki_button():
 
         #rospy.spin() tells the program to not exit until you press ctrl + c.  If this wasn't there... it'd subscribe and then immediatly exit (therefore stop "listening" to the thread).
         rospy.spin();
+        
+    def shutdown(self):
+                # stop turtlebot
+                    rospy.loginfo("Stop TurtleBot")
+                    # a default Twist has linear.x of 0 and angular.z of 0.  So it'll stop TurtleBot
+                    self.cmd_vel.publish(Twist())
+                    # sleep just makes sure TurtleBot receives the stop command prior to shutting down the script
+                    rospy.sleep(1)
 
 
     
@@ -56,15 +64,6 @@ class kobuki_button():
                     self.cmd_vel.publish(move_cmd)
                     # wait for 0.1 seconds (10 HZ) and publish again
                     r.sleep()
-                        
-        
-                def shutdown(self):
-                # stop turtlebot
-                    rospy.loginfo("Stop TurtleBot")
-                    # a default Twist has linear.x of 0 and angular.z of 0.  So it'll stop TurtleBot
-                    self.cmd_vel.publish(Twist())
-                    # sleep just makes sure TurtleBot receives the stop command prior to shutting down the script
-                    rospy.sleep(1)
             elif ( data.button == ButtonEvent.Button1 ) :
                 button = "B1"
             else:
