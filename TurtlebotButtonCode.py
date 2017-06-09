@@ -71,7 +71,10 @@ class kobuki_button():
             state = "pressed"  
         if ( data.button == ButtonEvent.Button0 ) :
             button = "B0"
-            GoForward()
+            try:
+                GoForward()
+            except:
+                rospy.loginfo("GoForward node terminated.")
         elif ( data.button == ButtonEvent.Button1 ) :
             button = "B1"
         else:
