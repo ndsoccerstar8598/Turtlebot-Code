@@ -69,28 +69,6 @@ class GoToPose():
         rospy.loginfo("Stop")
         rospy.sleep(1)
 
-if __name__ == '__main__':
-    try:
-        rospy.init_node('nav_test', anonymous=False)
-        navigator = GoToPose()
-
-        # Customize the following values so they are appropriate for your location
-        position = {'x': .348, 'y' : .449}
-        quaternion = {'r1' : 0.000, 'r2' : 0.000, 'r3' : 0.000, 'r4' : 1.000}
-
-        rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
-        success = navigator.goto(position, quaternion)
-
-        if success:
-            rospy.loginfo("Hooray, reached the desired pose")
-        else:
-            rospy.loginfo("The base failed to reach the desired pose")
-
-        # Sleep to give the last log messages time to be sent
-        rospy.sleep(1)
-
-    except rospy.ROSInterruptException:
-        rospy.loginfo("Ctrl-C caught. Quitting")
 
 
 class kobuki_button():
@@ -112,7 +90,22 @@ class kobuki_button():
             state = "pressed"  
             if ( data.button == ButtonEvent.Button0 ) :
                 button = "B0"
-                GoToPose()
+                navigator = GoToPose()
+
+                # Customize the following values so they are appropriate for your location
+                position = {'x': 2.84, 'y' : .739}
+                quaternion = {'r1' : 0.000, 'r2' : 0.000, 'r3' : 0.000, 'r4' : 1.000}
+
+                rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
+                success = navigator.goto(position, quaternion)
+
+                if success:
+                    rospy.loginfo("Hooray, reached the desired pose")
+                else:
+                    rospy.loginfo("The base failed to reach the desired pose")
+
+                #Sleep to give the last log messages time to be sent
+                rospy.sleep(1)
             elif ( data.button == ButtonEvent.Button1 ) :
                 button = "B1"
             else:
