@@ -69,17 +69,17 @@ class kobuki_button():
             state = "released"
         else:
             state = "pressed"  
-        if ( data.button == ButtonEvent.Button0 ) :
-            button = "B0"
-            try:
-                GoForward()
-            except:
-                rospy.loginfo("GoForward node terminated.")
-        elif ( data.button == ButtonEvent.Button1 ) :
-            button = "B1"
-        else:
-            button = "B2"
-            rospy.loginfo("Button %s was %s."%(button, state))
+            if ( data.button == ButtonEvent.Button0 ) :
+                button = "B0"
+                try:
+                    GoForward()
+                except:
+                    rospy.loginfo("GoForward node terminated.")
+            elif ( data.button == ButtonEvent.Button1 ) :
+                button = "B1"
+            else:
+                button = "B2"
+                rospy.loginfo("Button %s was %s."%(button, state))
     
 
 if __name__ == '__main__':
