@@ -45,7 +45,7 @@ class GoForward():
         # Twist is a datatype for velocity
         move_cmd = Twist()
 	# let's go forward at 0.2 m/s
-        move_cmd.linear.x = 0.2
+        move_cmd.linear.x = -0.2
 	# let's turn at 0 radians/s
 	move_cmd.angular.z = 0
 
@@ -67,7 +67,8 @@ class GoForward():
  
 if __name__ == '__main__':
     try:
-        GoForward()
+	for x in range(0,2):
+        	GoForward()
     except:
         rospy.loginfo("GoForward node terminated.")
 
