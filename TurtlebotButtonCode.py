@@ -33,7 +33,7 @@ class GoForward():
     # let's go forward at 0.2 m/s
         move_cmd.linear.x = 0.2
     # let's turn at 0 radians/s
-    move_cmd.angular.z = 0
+        move_cmd.angular.z = 0
 
     # as long as you haven't ctrl + c keeping doing...
         while not rospy.is_shutdown():
@@ -66,17 +66,17 @@ class kobuki_button():
     
     def ButtonEventCallback(self,data):
         if ( data.state == ButtonEvent.RELEASED ) :
-        state = "released"
+            state = "released"
         else:
-        state = "pressed"  
+            state = "pressed"  
         if ( data.button == ButtonEvent.Button0 ) :
-        button = "B0"
-        GoForward()
+            button = "B0"
+            GoForward()
         elif ( data.button == ButtonEvent.Button1 ) :
-        button = "B1"
+            button = "B1"
         else:
-        button = "B2"
-        rospy.loginfo("Button %s was %s."%(button, state))
+            button = "B2"
+            rospy.loginfo("Button %s was %s."%(button, state))
     
 
 if __name__ == '__main__':
