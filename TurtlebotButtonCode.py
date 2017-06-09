@@ -13,7 +13,7 @@ from geometry_msgs.msg import Twist
 class GoForward():
     def __init__(self):
         # initiliaze
-        rospy.init_node('GoForward', anonymous=True)
+        rospy.init_node('GoForward', anonymous=False)
 
     # tell user how to stop TurtleBot
         rospy.loginfo("To stop TurtleBot CTRL + C")
@@ -71,10 +71,7 @@ class kobuki_button():
             state = "pressed"  
             if ( data.button == ButtonEvent.Button0 ) :
                 button = "B0"
-                try:
-                    GoForward()
-                except:
-                    rospy.loginfo("GoForward node terminated.")
+                GoForward()
             elif ( data.button == ButtonEvent.Button1 ) :
                 button = "B1"
             else:
