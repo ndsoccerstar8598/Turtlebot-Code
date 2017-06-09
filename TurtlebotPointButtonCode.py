@@ -18,6 +18,7 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 import actionlib
 from actionlib_msgs.msg import *
 from geometry_msgs.msg import Pose, Point, Quaternion
+from kobuki_msgs.msg import PowerSystemEvent, AutoDockingAction, AutoDockingGoal, SensorState #for kobuki base power and auto docking
 
 
 class GoToPose():
@@ -84,7 +85,7 @@ class kobuki_button():
         
 
     def ButtonEventCallback(self,data):
-        button = ""
+        button = "%s"%(button)
         if ( data.state == ButtonEvent.RELEASED ) :
             state = "released"
         else:
@@ -107,6 +108,20 @@ class kobuki_button():
 
                 #Sleep to give the last log messages time to be sent
                 rospy.sleep(1)
+                goal = AutoDockingGoal()
+                rospy.loginfo("Sending auto_docking goal and waiting for result (times out in 180 seconds and will try again if required)")
+                self._client.send_goal(goal)
+
+                #Give the auto docking script 180 seconds.  It can take a while if it retries.
+                success = self._client.wait_for_result(rospy.Duration(180))
+
+                if success:
+                    rospy.loginfo("Auto_docking succeeded")
+                    self.charging_at_dock_station = True #The callback which detects the docking status can take up to 3 seconds to update which was causing coffee bot to try and redock (presuming it failed) even when the dock was successful.  Therefore hardcoding this value after success.
+                    return True
+                else:
+                    rospy.loginfo("Auto_docking failed")
+                    return False
             elif ( data.button == ButtonEvent.Button1 ) :
                 button = "B1"
             else:
