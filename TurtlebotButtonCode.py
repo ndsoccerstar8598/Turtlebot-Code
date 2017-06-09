@@ -13,7 +13,7 @@ from geometry_msgs.msg import Twist
 class GoForward():
     def __init__(self):
         # initiliaze
-        rospy.init_node('GoForward', anonymous=False)
+        rospy.init_node('GoForward', anonymous=True)
 
     # tell user how to stop TurtleBot
         rospy.loginfo("To stop TurtleBot CTRL + C")
