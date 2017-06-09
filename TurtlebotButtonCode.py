@@ -79,7 +79,7 @@ class kobuki_button():
                 button = "B1"
             else:
                 button = "B2"
-                rospy.loginfo("Button %s was %s."%(button, state))
+        rospy.loginfo("Button %s was %s."%(button, state))
     
 
 if __name__ == '__main__':
