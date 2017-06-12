@@ -21,7 +21,7 @@ class bumper():
             self.led2.publish(Led.GREEN)
         else:
             bump = False
-            self.led1.publish(Led.RED)
+            self.led2.publish(Led.BLACK)
         rospy.loginfo("Bumper Event") 
         rospy.loginfo("Bumper was %s."%(bump))
         rospy.loginfo(data.bumper)
