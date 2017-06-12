@@ -42,7 +42,6 @@ class GoToPose():
         self.move_base.wait_for_server(rospy.Duration(5))
 
     def goto(self, pos, quat):
-
         # Send a goal
         self.goal_sent = True
         goal = MoveBaseGoal()
@@ -88,6 +87,57 @@ class kobuki_button():
         #rospy.spin() tells the program to not exit until you press ctrl + c.  If this wasn't there... it'd subscribe and then immediatly exit (therefore stop "listening" to the thread).
         rospy.spin();
         
+    def DockWithChargingStation(self):
+        #before we can run auto-docking we need to be close to the docking station..
+        if(not self.GoCloseToTheChargingStation()):
+            return False
+        #We're close to the docking station... so let's dock
+        return self.WereCloseDock()
+    
+    def WereCloseDock(self):
+        #The following will start the AutoDockingAction which will automatically find and dock TurtleBot with the docking station as long as it's near the docking station when started
+        self._client = actionlib.SimpleActionClient('/dock_drive_action', AutoDockingAction)
+        rospy.loginfo("waiting for auto_docking server")
+        self._client.wait_for_server()
+        rospy.loginfo("auto_docking server found")
+        goal = AutoDockingGoal()
+        rospy.loginfo("Sending auto_docking goal and waiting for result (times out in 180 seconds and will try again if required)")
+        self._client.send_goal(goal)
+        
+        #Give the auto docking script 180 seconds.  It can take a while if it retries.
+        success = self._client.wait_for_result(rospy.Duration(180))
+        
+        if success:
+            rospy.loginfo("Auto_docking succeeded")
+            self.charging_at_dock_station = True #The callback which detects the docking status can take up to 3 seconds to update which was causing coffee bot to try and redock (presuming it failed) even when the dock was successful.  Therefore hardcoding this value after success.
+            return True
+        else:
+            rospy.loginfo("Auto_docking failed")
+            return False
+
+    def GoCloseToTheChargingStation(self):
+        #the auto docking script works well as long as you are roughly 1 meter from the docking station.  So let's get close first...
+        rospy.loginfo("Let's go near the docking station")
+        goal = MoveBaseGoal()
+        goal.target_pose.header.frame_id = 'my_room'
+        goal.target_pose.header.stamp = rospy.Time.now()
+        #set a Pose near the docking station
+        goal.target_pose.pose = Pose(Point(float(2.84), float(.739), float(0)), Quaternion(float(0), float(0), float(0.892), float(-1.5)))
+        #start moving
+        self.move_base.send_goal(goal)
+        #allow TurtleBot up to 60 seconds to get close to 
+        success = self.move_base.wait_for_result(rospy.Duration(60)) 
+        if not success:
+            self.move_base.cancel_goal()
+            rospy.loginfo("The base failed to reach the desired pose near the charging station")
+            return False
+        else:
+            # We made it!
+            state = self.move_base.get_state()
+            if state == GoalStatus.SUCCEEDED:
+                rospy.loginfo("Hooray, reached the desired pose near the charging station")
+                return True
+        
 
     def ButtonEventCallback(self,data):
         if ( data.state == ButtonEvent.RELEASED ) :
@@ -96,36 +146,7 @@ class kobuki_button():
             state = "pressed"  
             if ( data.button == ButtonEvent.Button0 ) :
                 button = "B0"
-                navigator = GoToPose()
-
-                # Customize the following values so they are appropriate for your location
-                position = {'x': 2.84, 'y' : .739}
-                quaternion = {'r1' : 0.000, 'r2' : 0.000, 'r3' : 0.000, 'r4' : 1.000}
-
-                rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
-                success = navigator.goto(position, quaternion)
-
-                if success:
-                    rospy.loginfo("Hooray, reached the desired pose")
-                else:
-                    rospy.loginfo("The base failed to reach the desired pose")
-
-                #Sleep to give the last log messages time to be sent
-                rospy.sleep(1)
-                goal = AutoDockingGoal()
-                rospy.loginfo("Sending auto_docking goal and waiting for result (times out in 180 seconds and will try again if required)")
-                self._client.send_goal(goal)
-
-                #Give the auto docking script 180 seconds.  It can take a while if it retries.
-                success = self._client.wait_for_result(rospy.Duration(180))
-
-                if success:
-                    rospy.loginfo("Auto_docking succeeded")
-                    self.charging_at_dock_station = True #The callback which detects the docking status can take up to 3 seconds to update which was causing coffee bot to try and redock (presuming it failed) even when the dock was successful.  Therefore hardcoding this value after success.
-                    return True
-                else:
-                    rospy.loginfo("Auto_docking failed")
-                    return False
+                self.DockWithChargingStation()
             elif ( data.button == ButtonEvent.Button1 ) :
                 button = "B1"
             else:
