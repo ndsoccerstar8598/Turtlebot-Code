@@ -127,7 +127,7 @@ class kobuki_button():
         #the auto docking script works well as long as you are roughly 1 meter from the docking station.  So let's get close first...
         rospy.loginfo("Let's go near the docking station")
         goal = MoveBaseGoal()
-        goal.target_pose.header.frame_id = 'my_room'
+        goal.target_pose.header.frame_id = 'map'
         goal.target_pose.header.stamp = rospy.Time.now()
         #set a Pose near the docking station
         goal.target_pose.pose = Pose(Point(float(2.84), float(.739), float(0)), Quaternion(float(0), float(0), float(0.892), float(-1.5)))
