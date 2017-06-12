@@ -14,7 +14,7 @@ class bumper():
         rospy.init_node("bumper")        
 
         #monitor kobuki's button events
-        rospy.Subscriber('mobile_base/events/bumper',BumperEvent,self.processBump)
+        rospy.Subscriber('mobile_base/events/bumper',BumperEvent,BumperEventCallback)
 
         #rospy.spin() tells the program to not exit until you press ctrl + c.  If this wasn't there... it'd subscribe and then immediatly exit (therefore stop "listening" to the thread).
         rospy.spin();
