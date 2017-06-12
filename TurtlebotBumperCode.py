@@ -8,28 +8,29 @@ import rospy
 from geometry_msgs.msg import Twist
 from kobuki_msgs.msg import BumperEvent
 
+class bumper():
 
-rospy.init_node("bumper")
+    def __init__(self):
+        rospy.init_node("bumper")        
 
-rospy.on_shutdown(self.shutdown)
+        #monitor kobuki's button events
+        rospy.Subscriber('mobile_base/events/bumper',BumperEvent,self.processBump)
 
-def shutdown(self):
-    rospy.loginfo("Stop!") 
-    self.cmd_vel.publish(Twist()) 
-    rospy.sleep(1)
+        #rospy.spin() tells the program to not exit until you press ctrl + c.  If this wasn't there... it'd subscribe and then immediatly exit (therefore stop "listening" to the thread).
+        rospy.spin();
 
-#if bump data is received, process here 
-#data.bumper: LEFT (0), CENTER (1), RIGHT (2) 
-#data.state: RELEASED(0), PRESSED(1) 
-def processBump(data): 
-    print("Bump")
-    global bump 
-    if (data.state == BumperEvent.PRESSED): 
-        bump = True 
-    else: 
-        bump = False 
-    rospy.loginfo("Bumper Event") 
-    rospy.loginfo(data.bumper)
-    
-while not rospy.is_shutdown():
-    rospy.Subscriber('mobile_base/events/bumper', BumperEvent, processBump)
+    def BumperEventCallback(self,data):
+        if ( data.state == BumperEvent.PRESSED ) :
+            bump = True
+        else:
+            bump = False
+        rospy.loginfo("Bumper Event") 
+        rospy.loginfo("Bumper was %s."%(bump))
+        rospy.loginfo(data.bumper)
+
+
+if __name__ == '__main__':
+    try:
+        bumper()
+    except rospy.ROSInterruptException:
+        rospy.loginfo("exception")
