@@ -82,7 +82,12 @@ class kobuki_button():
     button = ""
 
     def __init__(self):
-        rospy.init_node("kobuki_button")        
+        rospy.init_node("kobuki_button")  
+        #tell the action client that we want to spin a thread by default
+        self.move_base = actionlib.SimpleActionClient("move_base", MoveBaseAction)
+        rospy.loginfo("wait for the action server to come up")
+        #allow up to 30 seconds for the action server to come up
+        self.move_base.wait_for_server(rospy.Duration(30))      
 
         #monitor kobuki's button events
         rospy.Subscriber("/mobile_base/events/button",ButtonEvent,self.ButtonEventCallback)
