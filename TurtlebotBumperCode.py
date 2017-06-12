@@ -6,7 +6,7 @@ Created on Jun 12, 2017
 import roslib
 import rospy
 from geometry_msgs.msg import Twist
-kobuki_msgs.msg import BumperEvent
+import BumperEvent
 
 # Publish led1
 self.led1 = rospy.Publisher('/mobile_base/commands/led1', Led, queue_size=10) 
