@@ -109,10 +109,10 @@ class kobuki_button():
                 rospy.sleep(1)
                 goal = AutoDockingGoal()
                 rospy.loginfo("Sending auto_docking goal and waiting for result (times out in 180 seconds and will try again if required)")
-                self._client.send_goal(goal)
+                self.client.send_goal(goal)
 
                 #Give the auto docking script 180 seconds.  It can take a while if it retries.
-                success = self._client.wait_for_result(rospy.Duration(180))
+                success = self.client.wait_for_result(rospy.Duration(180))
 
                 if success:
                     rospy.loginfo("Auto_docking succeeded")
