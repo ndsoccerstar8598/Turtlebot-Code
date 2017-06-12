@@ -8,11 +8,6 @@ import rospy
 from geometry_msgs.msg import Twist
 from kobuki_msgs.msg import BumperEvent
 
-Led = False
-# Publish led1
-self.led1 = rospy.Publisher('/mobile_base/commands/led1', Led, queue_size=10) 
-# Publish led2 
-self.led2 = rospy.Publisher('/mobile_base/commands/led2', Led, queue_size=10)
 
 rospy.init_node("bumper")
 
