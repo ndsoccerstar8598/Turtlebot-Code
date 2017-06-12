@@ -7,10 +7,9 @@ import roslib
 import rospy
 from geometry_msgs.msg import Twist
 from kobuki_msgs.msg import BumperEvent
+from kobuki_msgs.msg import Led
 
 class bumper():
-    
-    global Led
     
     def BumperEventCallback(self,data):
         # Publish led1
