@@ -13,12 +13,17 @@ Created on Jun 9, 2017
 import roslib
 import rospy
 from kobuki_msgs.msg import ButtonEvent
-from geometry_msgs.msg import Twist
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 import actionlib
 from actionlib_msgs.msg import *
-from geometry_msgs.msg import Pose, Point, Quaternion
 from kobuki_msgs.msg import PowerSystemEvent, AutoDockingAction, AutoDockingGoal, SensorState #for kobuki base power and auto docking
+from actionlib_msgs.msg import *
+from geometry_msgs.msg import Pose, PoseWithCovarianceStamped, Point, Quaternion, Twist
+import json
+import urllib2
+import time #for sleep()
+from smart_battery_msgs.msg import SmartBatteryStatus #for netbook battery
+import math #for comparing if Kobuki's power has changed using fabs
 
 
 class GoToPose():
@@ -109,10 +114,10 @@ class kobuki_button():
                 rospy.sleep(1)
                 goal = AutoDockingGoal()
                 rospy.loginfo("Sending auto_docking goal and waiting for result (times out in 180 seconds and will try again if required)")
-                self.client.send_goal(goal)
+                self._client.send_goal(goal)
 
                 #Give the auto docking script 180 seconds.  It can take a while if it retries.
-                success = self.client.wait_for_result(rospy.Duration(180))
+                success = self._client.wait_for_result(rospy.Duration(180))
 
                 if success:
                     rospy.loginfo("Auto_docking succeeded")
