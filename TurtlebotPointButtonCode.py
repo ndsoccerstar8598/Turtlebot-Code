@@ -77,6 +77,9 @@ class GoToPose():
 
 
 class kobuki_button():
+    
+    move_base = False
+    button = ""
 
     def __init__(self):
         rospy.init_node("kobuki_button")        
