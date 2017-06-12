@@ -7,14 +7,23 @@ import roslib
 import rospy
 from geometry_msgs.msg import Twist
 from kobuki_msgs.msg import BumperEvent
+from macerrors import addRefFailed
 
 class bumper():
-
+    
+    global Led
+    
     def BumperEventCallback(self,data):
+        # Publish led1
+        self.led1 = rospy.Publisher('/mobile_base/commands/led1', Led, queue_size=10) 
+        # Publish led2 
+        self.led2 = rospy.Publisher('/mobile_base/commands/led2', Led, queue_size=10)
         if ( data.state == BumperEvent.PRESSED ) :
             bump = True
+            self.led2.publish(Led.GREEN)
         else:
             bump = False
+            self.led1.publish(Led.RED)
         rospy.loginfo("Bumper Event") 
         rospy.loginfo("Bumper was %s."%(bump))
         rospy.loginfo(data.bumper)
