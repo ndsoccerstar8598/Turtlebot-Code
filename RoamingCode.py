@@ -81,6 +81,7 @@ if __name__ == '__main__':
                 rospy.loginfo("Hooray, reached the desired pose")
             else:
                 rospy.loginfo("The base failed to reach the desired pose")
+                break
 
         # Sleep to give the last log messages time to be sent
         rospy.sleep(1)
