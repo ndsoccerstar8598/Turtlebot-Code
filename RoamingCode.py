@@ -9,7 +9,6 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 import actionlib
 from actionlib_msgs.msg import *
 from geometry_msgs.msg import Pose, Point, Quaternion
-from Carbon.AppleEvents import keyAEPointList
 
 class GoToPose():
     def __init__(self):
