@@ -60,8 +60,8 @@ class GoToPose():
         rospy.sleep(1)
 
 if __name__ == '__main__':
-    xList = [.303, 4.49, 10.5, 2.51]
-    yList = [.0882, -3.72, -3.95, -2.02]
+    xList = [.303, 1.87, 4.49, 10.5, 2.51]
+    yList = [.0882, -2.39, -3.72, -3.95, -2.02]
     try:
         rospy.init_node('nav_test', anonymous=False)
         navigator = GoToPose()
@@ -71,7 +71,7 @@ if __name__ == '__main__':
         quaternion = {'r1' : 0.000, 'r2' : 0.000, 'r3' : 0.000, 'r4' : 1.000}
         
         #INSERT FOR LOOP HERE.
-        for i in range (3):
+        for i in range (4):
             x = xList[i]
             y = yList[i]
             position = {'x' : x, 'y' : y}
