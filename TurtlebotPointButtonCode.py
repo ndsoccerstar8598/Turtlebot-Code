@@ -148,7 +148,7 @@ class kobuki_button():
         
 
     def ButtonEventCallback(self,data):
-        button = ""
+        button = "%s"%(button)
         if ( data.state == ButtonEvent.RELEASED ) :
             state = "released"
         else:
