@@ -130,7 +130,7 @@ class kobuki_button():
         goal.target_pose.header.frame_id = 'map'
         goal.target_pose.header.stamp = rospy.Time.now()
         #set a Pose near the docking station
-        goal.target_pose.pose = Pose(Point(float(2.84), float(.739), float(0)), Quaternion(float(0), float(0), float(0.892), float(-1.5)))
+        goal.target_pose.pose = Pose(Point(float(-.0114), float(.0226), float(0)), Quaternion(float(0), float(0), float(0.892), float(-1.5)))
         #start moving
         self.move_base.send_goal(goal)
         #allow TurtleBot up to 60 seconds to get close to 
