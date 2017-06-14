@@ -148,7 +148,14 @@ class kobuki_button():
         
 
     def ButtonEventCallback(self,data):
-        button = "%s"%(button)
+        #button = "%"
+        if ( data.button == ButtonEvent.Button0 ) :
+            button = "B0"
+        elif ( data.button == ButtonEvent.Button1 ) :
+            button = "B1"
+        else:
+            button = "B2"
+        #And if we were to implement this, we would obviously have to get rid of the button assignment line above.
         if ( data.state == ButtonEvent.RELEASED ) :
             state = "released"
         else:
