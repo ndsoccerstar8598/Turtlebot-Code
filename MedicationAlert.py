@@ -69,6 +69,12 @@ class issueReminder():
 
 if __name__ == '__main__':
     try:
+        def reminder(self):
+            self.soundhandle = SoundClient()
+            rospy.sleep(1)
+            self.soundhandle.say("It is six o'clock. It is time for your medication.")
+            rospy.loginfo("Saying reminder now!")
+        
         rospy.init_node('nav_test', anonymous=False)
         navigator = GoToPose()
 
@@ -83,10 +89,7 @@ if __name__ == '__main__':
 
         if success:
             rospy.loginfo("Hooray, reached the desired pose")
-            self.soundhandle = SoundClient()
-            rospy.sleep(1)
-            self.soundhandle.say("It is six o'clock. It is time for your medication.")
-            rospy.loginfo("Saying reminder now!")
+            reminder()
             #issueReminder() Or I could just try pasting in the code I have in the class under the rospy.loginfo statement.
         else:
             rospy.loginfo("The base failed to reach the desired pose")
