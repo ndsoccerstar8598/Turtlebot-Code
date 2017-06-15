@@ -65,6 +65,7 @@ class issueReminder():
         self.soundhandle = SoundClient()
         rospy.sleep(1)
         self.soundhandle.say("It is six o'clock. It is time for your medication.")
+        rospy.loginfo("Saying reminder now!")
 
 if __name__ == '__main__':
     try:
