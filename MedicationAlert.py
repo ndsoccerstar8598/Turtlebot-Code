@@ -1,4 +1,4 @@
- '''
+'''
 Created on Jun 14, 2017
 @author: kristentan
 '''
@@ -76,6 +76,8 @@ if __name__ == '__main__':
         quaternion = {'r1' : 0.000, 'r2' : 0.000, 'r3' : 0.000, 'r4' : 1.000}
 
         rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
+        #now = datetime.datetime.now()
+        #if now.hour == 9 and now.minute == 30 and now.second == 0:
         success = navigator.goto(position, quaternion)
 
         if success:
