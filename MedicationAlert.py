@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
         rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
         now = datetime.datetime.now()
-        if now.hour == 12 and now.minute == 30 and now.second == 0:
+        if now.hour == 12 and now.minute == 45 and now.second == 0:
             success = navigator.goto(position, quaternion)
 
         if success:
