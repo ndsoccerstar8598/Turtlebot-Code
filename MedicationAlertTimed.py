@@ -86,17 +86,18 @@ if __name__ == '__main__':
         rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
         now = datetime.datetime.now()
 	when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
-        if (when == datetime.datetime.now()):
-            success = navigator.goto(position, quaternion)
-            success.navigator.wait_for_result(rospy.Duration(240))
-            rospy.loginfo("Waiting for the correct alert time.")
+        while (when != datetime.datetime.now()):
+		rospy.sleep(1)
+        success = navigator.goto(position, quaternion)
+        success.navigator.wait_for_result(rospy.Duration(240))
+        rospy.loginfo("Waiting for the correct alert time.")
 
-            if success:
-                rospy.loginfo("Hooray, reached the desired pose")
+        if success:
+        	rospy.loginfo("Hooray, reached the desired pose")
                 reminder(issueReminder()) #Originally I got the 0 argument passed error. Then I tried to pass self, and that did not work. I ended up having to pass the class itself to the method because the word "self" in the reminder method refers to the issueReminder class?
                 issueReminder() #Or I could just try pasting in the code I have in the class under the rospy.loginfo statement.
-            else:
-                rospy.loginfo("The base failed to reach the desired pose")
+        else:
+        	rospy.loginfo("The base failed to reach the desired pose")
 
         # Sleep to give the last log messages time to be sent
         rospy.sleep(1)
