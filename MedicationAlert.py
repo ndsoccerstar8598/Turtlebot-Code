@@ -89,8 +89,8 @@ if __name__ == '__main__':
 
         if success:
             rospy.loginfo("Hooray, reached the desired pose")
-            reminder()
-            #issueReminder() Or I could just try pasting in the code I have in the class under the rospy.loginfo statement.
+            reminder(issueReminder())
+            issueReminder() #Or I could just try pasting in the code I have in the class under the rospy.loginfo statement.
         else:
             rospy.loginfo("The base failed to reach the desired pose")
 
