@@ -84,8 +84,9 @@ if __name__ == '__main__':
         quaternion = {'r1' : 0.000, 'r2' : 0.000, 'r3' : 0.000, 'r4' : 1.000}
 
         rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
-        now = datetime.datetime.now()
-        if now.hour == 13 and now.minute == 3 and now.second == 0:
+        now = datetime.now()
+	when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
+        if (when == datetime.now()):
             success = navigator.goto(position, quaternion)
             success.navigator.wait_for_result(rospy.Duration(240))
             rospy.loginfo("Waiting for the correct alert time.")
