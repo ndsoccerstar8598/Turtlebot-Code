@@ -10,6 +10,7 @@ from actionlib_msgs.msg import *
 from geometry_msgs.msg import Pose, Point, Quaternion
 #The following import is necessary to play the medication reminder.
 from sound_play.libsoundplay import SoundClient
+import datetime
 
 class GoToPose():
     def __init__(self):
@@ -83,13 +84,13 @@ if __name__ == '__main__':
         quaternion = {'r1' : 0.000, 'r2' : 0.000, 'r3' : 0.000, 'r4' : 1.000}
 
         rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
-        #now = datetime.datetime.now()
-        #if now.hour == 9 and now.minute == 30 and now.second == 0:
-        success = navigator.goto(position, quaternion)
+        now = datetime.datetime.now()
+        if now.hour == 12 and now.minute == 30 and now.second == 0:
+            success = navigator.goto(position, quaternion)
 
         if success:
             rospy.loginfo("Hooray, reached the desired pose")
-            reminder(issueReminder())
+            reminder(issueReminder()) #Originally I got the 0 argument passed error. Then I tried to pass self, and that did not work. I ended up having to pass the class itself to the method because the word "self" in the reminder method refers to the issueReminder class?
             issueReminder() #Or I could just try pasting in the code I have in the class under the rospy.loginfo statement.
         else:
             rospy.loginfo("The base failed to reach the desired pose")
