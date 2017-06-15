@@ -83,7 +83,11 @@ if __name__ == '__main__':
 
         if success:
             rospy.loginfo("Hooray, reached the desired pose")
-            issueReminder() #Or I could just try pasting in the code I have in the class under the rospy.loginfo statement.
+            self.soundhandle = SoundClient()
+            rospy.sleep(1)
+            self.soundhandle.say("It is six o'clock. It is time for your medication.")
+            rospy.loginfo("Saying reminder now!")
+            #issueReminder() Or I could just try pasting in the code I have in the class under the rospy.loginfo statement.
         else:
             rospy.loginfo("The base failed to reach the desired pose")
 
