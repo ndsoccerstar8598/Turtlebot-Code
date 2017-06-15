@@ -86,7 +86,7 @@ if __name__ == '__main__':
         rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
         now = datetime.datetime.now()
 	when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
-        if (when == datetime.datetime.now()):
+        while (when != datetime.datetime.now()):
             success = navigator.goto(position, quaternion)
             success.navigator.wait_for_result(rospy.Duration(240))
             rospy.loginfo("Waiting for the correct alert time.")
@@ -99,7 +99,7 @@ if __name__ == '__main__':
                 rospy.loginfo("The base failed to reach the desired pose")
 
         # Sleep to give the last log messages time to be sent
-        rospy.sleep(100)
+        rospy.sleep(1)
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Ctrl-C caught. Quitting")
