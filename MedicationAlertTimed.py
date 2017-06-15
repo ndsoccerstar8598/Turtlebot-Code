@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
         rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
         now = datetime.datetime.now()
-        if now.hour == 12 and now.minute == 50 and now.second == 0:
+        if now.hour == 13 and now.minute == 3 and now.second == 0:
             success = navigator.goto(position, quaternion)
             success.navigator.wait_for_result(rospy.Duration(240))
             rospy.loginfo("Waiting for the correct alert time.")
