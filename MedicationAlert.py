@@ -11,6 +11,8 @@ from actionlib_msgs.msg import *
 from geometry_msgs.msg import Pose, Point, Quaternion
 #The following import is necessary to play the medication reminder.
 from sound_play.libsoundplay import SoundClient
+#from Timer import Timer
+import datetime
 
 class GoToPose():
     def __init__(self):
@@ -63,6 +65,10 @@ class GoToPose():
         
 class issueReminder():
     def reminder(self):
+        #timer = Timer()
+        #time = timer.get_time()
+        #timeNow = timer.get_time()
+        #if (timeNow - time) == 86400:
         self.soundhandle = SoundClient()
         rospy.sleep(1)
         self.soundhandle.say("It is six o'clock. It is time for your medication.")
@@ -81,7 +87,9 @@ if __name__ == '__main__':
 
         if success:
             rospy.loginfo("Hooray, reached the desired pose")
-            issueReminder() #Or I could just try pasting in the code I have in the class under the rospy.loginfo statement.
+            now = datetime.datetime.now()
+            if now.hour == 9 and now.minute == 30 and now.second == 0:
+                issueReminder() #Or I could just try pasting in the code I have in the class under the rospy.loginfo statement.
         else:
             rospy.loginfo("The base failed to reach the desired pose")
 
