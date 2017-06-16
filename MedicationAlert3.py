@@ -90,7 +90,7 @@ if __name__ == '__main__':
             when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
         else:
             when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
-        while (when.hour == 10 and when.minute != 10):
+        while (now.hour == 10 and now.minute != 11):
             now = datetime.datetime.now()
             rospy.loginfo("Waiting for the correct alert time.")
             rospy.loginfo(now.minute)
