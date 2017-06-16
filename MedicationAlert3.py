@@ -87,7 +87,7 @@ if __name__ == '__main__':
         now = datetime.datetime.now()
         rospy.loginfo(now)
         when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
-        while (when.hour == now.hour and when.minute != now.minute):
+        while (when.hour == datetime.datetime.hour and when.minute != datetime.datetime.minute):
             rospy.loginfo("Waiting for the correct alert time.")
             rospy.loginfo(now.minute)
             rospy.loginfo(when.minute)
