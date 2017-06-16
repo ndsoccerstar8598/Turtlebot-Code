@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
         rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
         now = datetime.datetime.now()
-        rospy.loginfo("Now = " + now)
+        rospy.loginfo(now)
         when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
         while (when <= datetime.datetime.now()):
             rospy.sleep(1)
