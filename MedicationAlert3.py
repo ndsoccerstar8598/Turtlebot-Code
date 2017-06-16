@@ -89,6 +89,8 @@ if __name__ == '__main__':
         when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
         while (when.hour == now.hour and when.minute != now.minute):
             rospy.loginfo("Waiting for the correct alert time.")
+            rospy.loginfo(now.minute)
+            rospy.loginfo(when.minute)
             rospy.sleep(1)
         success = navigator.goto(position, quaternion)
 
