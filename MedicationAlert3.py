@@ -86,7 +86,10 @@ if __name__ == '__main__':
         rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
         now = datetime.datetime.now()
         rospy.loginfo(now)
-        when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
+        if (now.minute+1 == 59):
+            when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
+        else:
+            when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
         while (when.hour == now.hour and when.minute != now.minute):
             now = datetime.datetime.now()
             rospy.loginfo("Waiting for the correct alert time.")
