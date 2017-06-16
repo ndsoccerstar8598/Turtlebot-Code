@@ -88,9 +88,9 @@ if __name__ == '__main__':
         rospy.loginfo(now)
         when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
         while (when.hour != now.hour and when.minute != now.minute):
+            rospy.loginfo("Waiting for the correct alert time.")
             rospy.sleep(1)
         success = navigator.goto(position, quaternion)
-        rospy.loginfo("Waiting for the correct alert time.")
 
         if success:
             rospy.loginfo("Hooray, reached the desired pose")
