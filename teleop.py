@@ -121,4 +121,4 @@ if __name__=="__main__":
         twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0
         pub.publish(twist)
 
-            termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
