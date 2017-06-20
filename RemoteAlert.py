@@ -150,7 +150,6 @@ if __name__ == '__main__':
         if success:
             rospy.loginfo("Hooray, reached the desired pose")
             sendEmail(email)
-            sendEmail() #Or I could just try pasting in the code I have in the class under the rospy.loginfo statement.
         else:
             rospy.loginfo("The base failed to reach the desired pose")
 
