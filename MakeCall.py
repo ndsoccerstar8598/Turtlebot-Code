@@ -91,8 +91,8 @@ class GoToPose():
         
 class email():
     def sendEmail(self):
-        me = "ktan1@stevens.edu"
-        my_password = "F7!Pf70p"
+        me = "29kec29@gmail.com"
+        my_password = "pi770w98!"
         you = "ktan1@stevens.edu"
 
         msg = MIMEMultipart('alternative')
@@ -118,8 +118,8 @@ class email():
 if __name__ == '__main__':
     try:
         def sendEmail(self):
-            me = "ktan1@stevens.edu"
-            my_password = "F7!Pf70p"
+            me = "29kec29@gmail.com"
+            my_password = "pi770w98!"
             you = "ktan1@stevens.edu"
 
             msg = MIMEMultipart('alternative')
