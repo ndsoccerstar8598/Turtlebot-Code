@@ -91,9 +91,9 @@ class GoToPose():
         
 class email():
     def sendEmail(self):
-        me = "29kec29@gmail.com"
-        my_password = "pi770w98!"
-        you = "ndimaria@stevens.edu"
+        me = "ktan1@stevens.edu"
+        my_password = "F7!Pf70p"
+        you = "ktan1@stevens.edu"
 
         msg = MIMEMultipart('alternative')
         msg['Subject'] = "Alert"
