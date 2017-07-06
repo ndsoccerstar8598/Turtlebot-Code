@@ -892,8 +892,8 @@ function ActionClient(options) {
   // create the topics associated with actionlib
   var feedbackListener = new Topic({
     ros : this.ros,
-    name : this.serverName + '/feedback',
-    messageType : this.actionName + 'Feedback'
+    name : this.serverName + "/feedback",
+    messageType : this.actionName + "Feedback"
   });
 
   var statusListener = new Topic({
@@ -904,14 +904,14 @@ function ActionClient(options) {
 
   var resultListener = new Topic({
     ros : this.ros,
-    name : this.serverName + '/result',
-    messageType : this.actionName + 'Result'
+    name : this.serverName + "/result",
+    messageType : this.actionName + "Result"
   });
 
   this.goalTopic = new Topic({
     ros : this.ros,
-    name : this.serverName + '/goal',
-    messageType : this.actionName + 'Goal'
+    name : this.serverName + "/goal",
+    messageType : this.actionName + "Goal"
   });
 
   this.cancelTopic = new Topic({
@@ -1022,14 +1022,14 @@ function ActionListener(options) {
   // create the topics associated with actionlib
   var goalListener = new Topic({
     ros : this.ros,
-    name : this.serverName + '/goal',
-    messageType : this.actionName + 'Goal'
+    name : this.serverName + "/goal",
+    messageType : this.actionName + "Goal"
   });
 
   var feedbackListener = new Topic({
     ros : this.ros,
-    name : this.serverName + '/feedback',
-    messageType : this.actionName + 'Feedback'
+    name : this.serverName + "/feedback",
+    messageType : this.actionName + "Feedback"
   });
 
   var statusListener = new Topic({
@@ -1040,8 +1040,8 @@ function ActionListener(options) {
 
   var resultListener = new Topic({
     ros : this.ros,
-    name : this.serverName + '/result',
-    messageType : this.actionName + 'Result'
+    name : this.serverName + "/result",
+    messageType : this.actionName + "Result"
   });
 
   goalListener.subscribe(function(goalMessage) {
@@ -1195,8 +1195,8 @@ function SimpleActionServer(options) {
     // create and advertise publishers
     this.feedbackPublisher = new Topic({
         ros : this.ros,
-        name : this.serverName + '/feedback',
-        messageType : this.actionName + 'Feedback'
+        name : this.serverName + "/feedback",
+        messageType : this.actionName + "Feedback"
     });
     this.feedbackPublisher.advertise();
 
@@ -1209,16 +1209,16 @@ function SimpleActionServer(options) {
 
     this.resultPublisher = new Topic({
         ros : this.ros,
-        name : this.serverName + '/result',
-        messageType : this.actionName + 'Result'
+        name : this.serverName + "/result",
+        messageType : this.actionName + "Result"
     });
     this.resultPublisher.advertise();
 
     // create and subscribe to listeners
     var goalListener = new Topic({
         ros : this.ros,
-        name : this.serverName + '/goal',
-        messageType : this.actionName + 'Goal'
+        name : this.serverName + "/goal",
+        messageType : this.actionName + "Goal"
     });
 
     var cancelListener = new Topic({
