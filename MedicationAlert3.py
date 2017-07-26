@@ -83,6 +83,7 @@ class issueReminder():
     
 
 if __name__ == '__main__':
+    rospy.init_node()
     def __init__(self):
         rospy.on_shutdown(self.shutdown)
         
