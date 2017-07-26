@@ -84,11 +84,12 @@ class issueReminder():
 
 if __name__ == '__main__':
     try:
+        rospy.init_node("soundplay")
         def __init__(self):
             rospy.on_shutdown(self.shutdown)
             
-        def init(soundplay):
-            rospy.init_node(soundplay)
+        #def init(soundplay):
+            #rospy.init_node(soundplay)
         
         def shutdown(self):
             rospy.loginfo("Stop")
