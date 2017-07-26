@@ -68,6 +68,9 @@ class GoToPose():
 """
         
 class issueReminder():
+    def __init__(self):
+        rospy.on_shutdown(self.shutdown)
+        
     def reminder(self):
         self.soundhandle = SoundClient()
         rospy.sleep(1)
