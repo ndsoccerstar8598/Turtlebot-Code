@@ -83,6 +83,13 @@ class issueReminder():
 
 if __name__ == '__main__':
     try:
+        def __init__(self):
+            rospy.on_shutdown(self.shutdown)
+        
+        def shutdown(self):
+            rospy.loginfo("Stop")
+            rospy.sleep(1)
+        
         def reminder(self):
             self.soundhandle = SoundClient()
             rospy.sleep(1)
