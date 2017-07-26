@@ -10,7 +10,11 @@ from actionlib_msgs.msg import *
 from geometry_msgs.msg import Pose, Point, Quaternion
 #The following import is necessary to play the medication reminder.
 from sound_play.libsoundplay import SoundClient
-import datetime
+#import datetime
+import MySQLdb
+import time
+
+"""
 
 class GoToPose():
     def __init__(self):
@@ -61,6 +65,8 @@ class GoToPose():
         rospy.loginfo("Stop")
         rospy.sleep(1)
         
+"""
+        
 class issueReminder():
     def reminder(self):
         self.soundhandle = SoundClient()
@@ -76,6 +82,18 @@ if __name__ == '__main__':
             self.soundhandle.say("It is six o'clock. It is time for your medication.")
             rospy.loginfo("Saying reminder now!")
         
+        temp = 0
+        while temp < 66:
+            db = MySQLdb.connect(host="192.168.1.194", user="turtlebot", passwd="turtlebot", db="temperature")
+            cur = db.cursor()
+            cur.execute("SELECT * FROM temp ORDER BY time DESC LIMIT 1")
+            for row in cur.fetchall():
+                temp = row[2]
+                print (row[2])
+                time.sleep(2)
+        reminder(issueReminder())
+        
+        """
         rospy.init_node('nav_test', anonymous=False)
         navigator = GoToPose()
 
@@ -94,9 +112,9 @@ if __name__ == '__main__':
             now = datetime.datetime.now()
             rospy.loginfo("Waiting for the correct alert time.")
             rospy.loginfo(now.minute)
-            rospy.loginfo(when.minute)
             rospy.sleep(1)
         success = navigator.goto(position, quaternion)
+        
 
         if success:
             rospy.loginfo("Hooray, reached the desired pose")
@@ -107,6 +125,8 @@ if __name__ == '__main__':
 
         # Sleep to give the last log messages time to be sent
         rospy.sleep(1)
+        """
+        
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Ctrl-C caught. Quitting")
