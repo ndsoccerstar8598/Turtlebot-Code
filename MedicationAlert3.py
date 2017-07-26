@@ -83,7 +83,7 @@ if __name__ == '__main__':
             rospy.loginfo("Saying reminder now!")
         
         temp = 0
-        while temp < 66:
+        while temp < 62:
             db = MySQLdb.connect(host="192.168.1.194", user="turtlebot", passwd="turtlebot", db="temperature")
             cur = db.cursor()
             cur.execute("SELECT * FROM temp ORDER BY time DESC LIMIT 1")
