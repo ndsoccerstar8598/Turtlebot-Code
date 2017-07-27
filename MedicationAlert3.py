@@ -85,6 +85,7 @@ class issueReminder():
 if __name__ == '__main__':
     try:
         rospy.init_node("soundplay")
+        
         def __init__(self):
             rospy.on_shutdown(self.shutdown)
             
@@ -98,7 +99,7 @@ if __name__ == '__main__':
         def reminder(self):
             self.soundhandle = SoundClient()
             rospy.sleep(1)
-            self.soundhandle.say("It is six o'clock. It is time for your medication.")
+            self.soundhandle.say("I have detected that temperature readings are above normal. Please consider exiting the premises.")
             rospy.loginfo("Saying reminder now!")
         
         temp = 0
