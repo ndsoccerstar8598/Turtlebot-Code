@@ -106,7 +106,7 @@ if __name__ == '__main__':
         while temp < 62:
             db = MySQLdb.connect(host="192.168.1.194", user="turtlebot", passwd="turtlebot", db="temperature")
             cur = db.cursor()
-            cur.execute("SELECT * FROM temp ORDER BY time DESC LIMIT 1")
+            cur.execute("SELECT * FROM temp ORDER BY date, time DESC LIMIT 1")
             for row in cur.fetchall():
                 temp = row[2]
                 print (row[2])
