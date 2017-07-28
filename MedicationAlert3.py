@@ -14,7 +14,6 @@ from sound_play.libsoundplay import SoundClient
 import MySQLdb
 import time
 
-"""
 
 class GoToPose():
     def __init__(self):
@@ -65,7 +64,7 @@ class GoToPose():
         rospy.loginfo("Stop")
         rospy.sleep(1)
         
-"""
+
         
 class issueReminder():
     def __init__(self):
@@ -113,15 +112,17 @@ if __name__ == '__main__':
                 time.sleep(2)
         reminder(issueReminder())
         
-        """
         rospy.init_node('nav_test', anonymous=False)
         navigator = GoToPose()
 
         # Customize the following values so they are appropriate for your location
-        position = {'x': -.0114, 'y' : .0226}
+        position = {'x': 5.1, 'y' : -2.97}
         quaternion = {'r1' : 0.000, 'r2' : 0.000, 'r3' : 0.000, 'r4' : 1.000}
 
+        
         rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
+        
+        """
         now = datetime.datetime.now()
         rospy.loginfo(now)
         if (now.minute+1 == 59):
@@ -133,6 +134,8 @@ if __name__ == '__main__':
             rospy.loginfo("Waiting for the correct alert time.")
             rospy.loginfo(now.minute)
             rospy.sleep(1)
+        """
+        
         success = navigator.goto(position, quaternion)
         
 
@@ -145,7 +148,6 @@ if __name__ == '__main__':
 
         # Sleep to give the last log messages time to be sent
         rospy.sleep(1)
-        """
         
 
     except rospy.ROSInterruptException:
