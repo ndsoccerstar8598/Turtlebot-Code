@@ -67,8 +67,6 @@ class GoToPose():
 
         
 class issueReminder():
-    def __init__(self):
-        rospy.on_shutdown(self.shutdown)
         
     def shutdown(self):
         rospy.loginfo("Stop")
