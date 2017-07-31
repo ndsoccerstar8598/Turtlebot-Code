@@ -81,7 +81,6 @@ class issueReminder():
 
 if __name__ == '__main__':
     try:
-        rospy.init_node("soundplay")
         
         def __init__(self):
             rospy.on_shutdown(self.shutdown)
@@ -116,7 +115,7 @@ if __name__ == '__main__':
             when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
         else:
             when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
-        while (now.hour == 9 and now.minute != 55):
+        while (now.hour == 9 and now.minute != 56):
             now = datetime.datetime.now()
             rospy.loginfo("Waiting for the correct alert time.")
             rospy.loginfo(now.minute)
