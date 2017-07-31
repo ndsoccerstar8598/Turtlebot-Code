@@ -10,7 +10,10 @@ from actionlib_msgs.msg import *
 from geometry_msgs.msg import Pose, Point, Quaternion
 #The following import is necessary to play the medication reminder.
 from sound_play.libsoundplay import SoundClient
-import datetime
+#import datetime
+import MySQLdb
+import time
+
 
 class GoToPose():
     def __init__(self):
@@ -61,42 +64,78 @@ class GoToPose():
         rospy.loginfo("Stop")
         rospy.sleep(1)
         
+
+        
 class issueReminder():
+    def __init__(self):
+        rospy.on_shutdown(self.shutdown)
+        
+    def shutdown(self):
+        rospy.loginfo("Stop")
+        rospy.sleep(1)
+        
     def reminder(self):
         self.soundhandle = SoundClient()
         rospy.sleep(1)
-        self.soundhandle.say("It is six o'clock. It is time for your medication.")
+        self.soundhandle.say("It is time to take your medication.")
         rospy.loginfo("Saying reminder now!")
+    
 
 if __name__ == '__main__':
     try:
+        rospy.init_node("soundplay")
+        
+        def __init__(self):
+            rospy.on_shutdown(self.shutdown)
+            
+        #def init(soundplay):
+            #rospy.init_node(soundplay)
+        
+        def shutdown(self):
+            rospy.loginfo("Stop")
+            rospy.sleep(1)
+            
         def reminder(self):
             self.soundhandle = SoundClient()
             rospy.sleep(1)
-            self.soundhandle.say("It is six o'clock. It is time for your medication.")
+            self.soundhandle.say("I have detected that temperature readings are above normal. Please consider exiting the premises.")
             rospy.loginfo("Saying reminder now!")
         
         rospy.init_node('nav_test', anonymous=False)
         navigator = GoToPose()
 
         # Customize the following values so they are appropriate for your location
-        position = {'x': -.0114, 'y' : .0226}
+        position = {'x': 5.1, 'y' : -2.97}
         quaternion = {'r1' : 0.000, 'r2' : 0.000, 'r3' : 0.000, 'r4' : 1.000}
 
+        
         rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
+        
+        
         now = datetime.datetime.now()
-        if now.hour == 12 and now.minute == 50 and now.second == 0:
-            success = navigator.goto(position, quaternion)
+        rospy.loginfo(now)
+        if (now.minute+1 == 59):
+            when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
+        else:
+            when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
+        while (now.hour == 10 and now.minute != 11):
+            now = datetime.datetime.now()
+            rospy.loginfo("Waiting for the correct alert time.")
+            rospy.loginfo(now.minute)
+            rospy.sleep(1)
+        
+        success = navigator.goto(position, quaternion)
 
-            if success:
-                rospy.loginfo("Hooray, reached the desired pose")
-                reminder(issueReminder()) #Originally I got the 0 argument passed error. Then I tried to pass self, and that did not work. I ended up having to pass the class itself to the method because the word "self" in the reminder method refers to the issueReminder class?
-                issueReminder() #Or I could just try pasting in the code I have in the class under the rospy.loginfo statement.
-            else:
-                rospy.loginfo("The base failed to reach the desired pose")
+        if success:
+            rospy.loginfo("Hooray, reached the desired pose")
+            reminder(issueReminder()) #Originally I got the 0 argument passed error. Then I tried to pass self, and that did not work. I ended up having to pass the class itself to the method because the word "self" in the reminder method refers to the issueReminder class?
+            issueReminder() #Or I could just try pasting in the code I have in the class under the rospy.loginfo statement.
+        else:
+            rospy.loginfo("The base failed to reach the desired pose")
 
         # Sleep to give the last log messages time to be sent
         rospy.sleep(1)
+        
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Ctrl-C caught. Quitting")
