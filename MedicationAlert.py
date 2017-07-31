@@ -103,7 +103,7 @@ if __name__ == '__main__':
         navigator = GoToPose()
 
         # Customize the following values so they are appropriate for your location
-        position = {'x': 5.1, 'y' : -2.97}
+        position = {'x': .668, 'y' : -.896}
         quaternion = {'r1' : 0.000, 'r2' : 0.000, 'r3' : 0.000, 'r4' : 1.000}
 
         
@@ -116,7 +116,7 @@ if __name__ == '__main__':
             when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
         else:
             when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
-        while (now.hour == 10 and now.minute != 11):
+        while (now.hour == 9 and now.minute != 55):
             now = datetime.datetime.now()
             rospy.loginfo("Waiting for the correct alert time.")
             rospy.loginfo(now.minute)
