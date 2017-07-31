@@ -10,7 +10,7 @@ from actionlib_msgs.msg import *
 from geometry_msgs.msg import Pose, Point, Quaternion
 #The following import is necessary to play the medication reminder.
 from sound_play.libsoundplay import SoundClient
-#import datetime
+import datetime
 import MySQLdb
 import time
 
@@ -115,7 +115,7 @@ if __name__ == '__main__':
             when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
         else:
             when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
-        while (now.hour == 9 and now.minute != 56):
+        while (now.hour == 9 and now.minute != 57):
             now = datetime.datetime.now()
             rospy.loginfo("Waiting for the correct alert time.")
             rospy.loginfo(now.minute)
