@@ -115,7 +115,7 @@ if __name__ == '__main__':
         navigator = GoToPose()
 
         # Customize the following values so they are appropriate for your location
-        position = {'x': 5.1, 'y' : -2.97}
+        position = {'x': 5.12, 'y' : -1.04}
         quaternion = {'r1' : 0.000, 'r2' : 0.000, 'r3' : 0.000, 'r4' : 1.000}
 
         
