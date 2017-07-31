@@ -102,7 +102,7 @@ if __name__ == '__main__':
             rospy.loginfo("Saying reminder now!")
         
         temp = 0
-        while temp < 62:
+        while temp < 60:
             db = MySQLdb.connect(host="192.168.1.194", user="turtlebot", passwd="turtlebot", db="temperature")
             cur = db.cursor()
             cur.execute("SELECT * FROM temp ORDER BY date DESC LIMIT 1")
@@ -112,7 +112,6 @@ if __name__ == '__main__':
                 time.sleep(2)
         reminder(issueReminder())
         
-        rospy.init_node('nav_test', anonymous=False)
         navigator = GoToPose()
 
         # Customize the following values so they are appropriate for your location
@@ -121,20 +120,6 @@ if __name__ == '__main__':
 
         
         rospy.loginfo("Go to (%s, %s) pose", position['x'], position['y'])
-        
-        """
-        now = datetime.datetime.now()
-        rospy.loginfo(now)
-        if (now.minute+1 == 59):
-            when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
-        else:
-            when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
-        while (now.hour == 10 and now.minute != 11):
-            now = datetime.datetime.now()
-            rospy.loginfo("Waiting for the correct alert time.")
-            rospy.loginfo(now.minute)
-            rospy.sleep(1)
-        """
         
         success = navigator.goto(position, quaternion)
         
