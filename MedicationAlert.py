@@ -95,7 +95,7 @@ if __name__ == '__main__':
         def reminder(self):
             self.soundhandle = SoundClient()
             rospy.sleep(1)
-            self.soundhandle.say("I have detected that temperature readings are above normal. Please consider exiting the premises.")
+            self.soundhandle.say("It is time to take your medication.")
             rospy.loginfo("Saying reminder now!")
         
         rospy.init_node('nav_test', anonymous=False)
@@ -115,7 +115,10 @@ if __name__ == '__main__':
             when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
         else:
             when = now.replace(hour=now.hour, minute=now.minute+1, second=0, microsecond=0)
-        while (now.hour == 9 and now.minute != 57):
+            
+        hour = 10
+        minute = 6
+        while (now.hour == hour and now.minute != minute):
             now = datetime.datetime.now()
             rospy.loginfo("Waiting for the correct alert time.")
             rospy.loginfo(now.minute)
