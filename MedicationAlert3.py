@@ -73,12 +73,6 @@ class issueReminder():
     def shutdown(self):
         rospy.loginfo("Stop")
         rospy.sleep(1)
-        
-    def reminder(self):
-        self.soundhandle = SoundClient()
-        rospy.sleep(1)
-        self.soundhandle.say("It is six o'clock. It is time for your medication.")
-        rospy.loginfo("Saying reminder now!")
     
 
 if __name__ == '__main__':
